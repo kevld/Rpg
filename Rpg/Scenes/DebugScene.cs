@@ -141,7 +141,10 @@ namespace Rpg.Scenes
 
             // Draw map
             if (Map == null)
+            {
+                _graphicsService.GraphicsDevice.SetRenderTarget(null);
                 return;
+            }
 
             _graphicsService.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Camera.GetTransformMatrix());
 
@@ -194,31 +197,7 @@ namespace Rpg.Scenes
 
             );
 
-            //_entityService.GetEntities().Where(x => !x.Components.Any(x => typeof(CollisionComponent).IsAssignableFrom(x.GetType())))
-            //    .ToList()
-            //    .ForEach(e =>
-            //    {
-            //        var e = _entityService.LocalPlayer;
-            //        _graphicsService.SpriteBatch.Draw(
-            //            GetDebugTexture(),
-            //            new Rectangle(
-            //                (int)(e.WorldPosition.X),
-            //                (int)(e.WorldPosition.Y),
-            //                (int)e.Size.X,
-            //                (int)e.Size.Y
-            //            ),
-            //            sourceRectangle: null,
-            //            Color.White,
-            //            rotation: 0.0f,
-            //            origin: Vector2.Zero,
-            //            effects: SpriteEffects.None,
-            //            layerDepth: 0.0f
-
-
-            //        );
-            //    });
-
-            _entityService.GetEntities().Where(x => x.Components.Any(x => typeof(CollisionComponent).IsAssignableFrom(x.GetType())))
+            _entityService.GetEntities().Where(x => x.Components.Any(x => (x is CollisionComponent)))
                 .ToList()
                 .ForEach(e =>
                 {
@@ -233,52 +212,6 @@ namespace Rpg.Scenes
 
                 });
 
-            //foreach (Entity e in _entityService.GetEntities())
-            //{
-            //    Rectangle r = new Rectangle(
-            //            (int)(e.WorldPosition.X),
-            //            (int)(e.WorldPosition.Y),
-            //            (int)e.Size.X,
-            //            (int)e.Size.Y
-            //        );
-
-            //    // Texture2D currentTexture = _contentService.ContentManager.Load<Texture2D>("Characters/Human/IDLE/base_idle_strip9");
-
-            //    //TODO : Affichage de la tuile (incluant le personnage et les tuiles de collision)
-            //    _graphicsService.SpriteBatch.Draw(
-            //        GetDebugTexture(),
-            //        new Rectangle(
-            //            (int)(e.WorldPosition.X),
-            //            (int)(e.WorldPosition.Y),
-            //            (int)e.Size.X,
-            //            (int)e.Size.Y
-            //        ),
-            //        sourceRectangle: null,
-            //        Color.White,
-            //        rotation: 0.0f,
-            //        origin: Vector2.Zero,
-            //        effects: SpriteEffects.None,
-            //        layerDepth: 0.0f
-
-
-            //    );
-
-            //    var colComp = e.Components.Where(x => typeof(CollisionComponent) == x.GetType()).FirstOrDefault() as CollisionComponent;
-            //    if (colComp != null)
-            //    {
-            //        // _graphicsService.SpriteBatch.DrawRectangle(
-            //        //     colComp.GetBoundingBox((int)ct.WorldPosition.X, (int)ct.WorldPosition.Y),
-            //        //     Color.White
-            //        // );
-            //        // _graphicsService.SpriteBatch.DrawRectangle(
-            //        //    colComp.GetBroadphaseBox(Vector2.Zero, colComp.GetBoundingBox((int)ct.WorldPosition.X, (int)ct.WorldPosition.Y)),
-            //        //    Color.Red
-            //        //);
-
-            //       _graphicsService.SpriteBatch.DrawRectangle(r, Color.Orange, 2);
-            //    }
-
-            //}
             _graphicsService.SpriteBatch.End();
 
             _graphicsService.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Camera.GetTransformMatrix());
@@ -309,55 +242,11 @@ namespace Rpg.Scenes
 
             _graphicsService.GraphicsDevice.SetRenderTarget(_graphicsService.SceneRenderTarget);
 
-            //_graphicsService.GraphicsDevice.Viewport = new Viewport(0, 0, _graphicsService.ScreenWidth, _graphicsService.ScreenHeight);
-
-            //if (CollisionTiles.Any())
-            //{
-
-            //    _graphicsService.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            //    //foreach (var c in CollisionTilesBounds)
-            //    //{
-            //    //    //WorldPosition.X + (Size.X / 2) / Zoom;
-            //    //    var newLocation = new Point((int)( c..X ), (int)(c.Y));
-            //    //    var newSize = new Point((int)c.Size.X, (int)( c.Size.Y));
-
-            //    //    _graphicsService.SpriteBatch.DrawRectangle(new Rectangle(newLocation, newSize), Color.Aqua, 5f);
-
-            //    //}
-
-            //    foreach (var ct in CollisionTiles)
-            //    {
-            //        var colComp = ct.Components.Where(x => typeof(CollisionComponent) == x.GetType()).FirstOrDefault() as CollisionComponent;
-            //        if (colComp != null)
-            //        {
-            //            // _graphicsService.SpriteBatch.DrawRectangle(
-            //            //     colComp.GetBoundingBox((int)ct.WorldPosition.X, (int)ct.WorldPosition.Y),
-            //            //     Color.White
-            //            // );
-            //            // _graphicsService.SpriteBatch.DrawRectangle(
-            //            //    colComp.GetBroadphaseBox(Vector2.Zero, colComp.GetBoundingBox((int)ct.WorldPosition.X, (int)ct.WorldPosition.Y)),
-            //            //    Color.Red
-            //            //);
-
-            //            _graphicsService.SpriteBatch.DrawRectangle(colComp.Box, Color.White, 2);
-            //            _graphicsService.SpriteBatch.DrawRectangle(colComp.Broadphase, Color.White, 2);
-            //        }
-
-            //    }
-
-            //    _graphicsService.SpriteBatch.End();
-
-            //}
-
             // draw scene
             _graphicsService.GraphicsDevice.SetRenderTarget(null);
             _graphicsService.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _graphicsService.SpriteBatch.Draw(_graphicsService.SceneRenderTarget, _graphicsService.SceneRenderTarget.Bounds, Color.White);
             _graphicsService.SpriteBatch.End();
-
-          
-
         }
 
         public void Update(GameTime gameTime)
@@ -367,11 +256,7 @@ namespace Rpg.Scenes
             {
                 entity.Update(gameTime);
             }
-            //foreach(var ct in CollisionTiles)
-            //{
-            //    var c = ct.Components.FirstOrDefault(x => x.GetType() == typeof(CollisionComponent)) as CollisionComponent;
-            //    c?.GetBoundingBox((int)ct.WorldPosition.X, (int)ct.WorldPosition.Y);
-            //}
+
         }
 
         #region IDisposable

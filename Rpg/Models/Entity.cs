@@ -14,8 +14,6 @@ namespace Rpg.Models
 
         private readonly List<Component> _components;
 
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
         public event EventHandler<EventArgs> EnabledChanged;
         public event EventHandler<EventArgs> UpdateOrderChanged;
 

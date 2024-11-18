@@ -219,18 +219,6 @@ namespace Rpg.Test.Models
         }
 
         [TestMethod]
-        public void DrawOrder_Exception()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => entity?.DrawOrder);
-        }
-
-        [TestMethod]
-        public void Visible_Exception()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => entity?.Visible);
-        }
-
-        [TestMethod]
         public void Enabled_Exception()
         {
             Assert.ThrowsException<NotImplementedException>(() => entity?.Enabled);
