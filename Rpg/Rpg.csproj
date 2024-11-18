@@ -13,7 +13,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<MonoGameExtendedPipelineReferencePath>$(MSBuildThisFileDirectory)pipeline-references</MonoGameExtendedPipelineReferencePath>
-		<UseWindowsForms>True</UseWindowsForms>
+		<UseWindowsForms>False</UseWindowsForms>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Icon.ico" />
@@ -42,7 +42,4 @@
 		<Message Text="Restoring dotnet tools" Importance="High" />
 		<Exec Command="dotnet tool restore" />
 	</Target>
-	<ItemGroup>
-    	<KnownFrameworkReference Update="Microsoft.WindowsDesktop.App.WindowsForms" IsWindowsOnly="false" />
-	</ItemGroup>
 </Project>
