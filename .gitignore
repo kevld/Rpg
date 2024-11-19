@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Rpg/.sonarqube/conf
+/.sonarqube/conf
+/RunSonar.bat
+/StartSonar.bat

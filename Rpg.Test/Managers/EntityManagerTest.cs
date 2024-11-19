@@ -4,6 +4,9 @@ using Rpg.Test.Mocks;
 
 namespace Rpg.Test.Managers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass]
     public class EntityManagerTest
     {
