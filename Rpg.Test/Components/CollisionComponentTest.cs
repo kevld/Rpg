@@ -12,28 +12,17 @@ namespace Rpg.Test.Components
     {
         private Entity? _owner;
         private Component? _collisionComponent;
-        private GameMock? _gameMock;
-        private GameTime? _gameTime;
-        private IGraphicsService? _graphicsService;
 
         [TestInitialize]
         public void Startup()
         {
-            _gameTime = new GameTime();
-            _gameMock = new GameMock();
-            _gameMock.InitializeOnly();
-
             _owner = new();
-            _graphicsService = new GraphicsService(_gameMock.GraphicsDeviceManager);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             _collisionComponent = null;
-            _gameTime = null;
-            _graphicsService?.Dispose();
-            _gameMock?.Dispose();
             _owner = null;
         }
 
