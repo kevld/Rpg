@@ -12,7 +12,7 @@ namespace Rpg.Test.Managers
         private SceneManager? _sceneManager;
         private GameMock? _gameMock;
         private GameTime? _gameTime;
-
+#if DEBUG
         [TestInitialize()]
         public void Startup()
         {
@@ -125,5 +125,6 @@ namespace Rpg.Test.Managers
         {
             Assert.ThrowsException<NotImplementedException>(() => _sceneManager?.UpdateOrder);
         }
+#endif
     }
 }

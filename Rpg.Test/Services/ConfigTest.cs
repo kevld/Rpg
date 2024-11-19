@@ -5,7 +5,7 @@ namespace Rpg.Test.Services
     [TestClass]
     public class ConfigTest
     {
-        private readonly string _jsonPath = @"C:\workspace\Rpg\Rpg\Settings.json";
+        private readonly string _jsonPath = @"settings.json";
 
         [TestMethod]
         public void LoadJsonConfigFile_CtorNull()
