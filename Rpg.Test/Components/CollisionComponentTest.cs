@@ -24,7 +24,7 @@ namespace Rpg.Test.Components
             _gameMock.InitializeOnly();
 
             _owner = new();
-            _graphicsService = new GraphicsServiceMock(_gameMock);
+            _graphicsService = new GraphicsService(_gameMock.GraphicsDeviceManager);
         }
 
         [TestCleanup]
