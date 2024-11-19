@@ -13,17 +13,8 @@ namespace Rpg.Models
         public string Name { get; private set; }
         public Vector2 ScreenPosition { get; private set; }
         public Vector2 Size { get; private set; }
-
-        private Vector2 _worldPosition;
-
-        public Vector2 WorldPosition
-        {
-            get => _worldPosition;
-            set
-            {
-                _worldPosition = value;
-            }
-        }
+        private Vector2 WorldPosition { get; set; }
+        
         public Vector2 PreviousWorldPosition { get; private set; }
         public Vector2 TargetWorldPosition { get; private set; }
 
@@ -149,10 +140,11 @@ namespace Rpg.Models
             }
 
 
-            _worldPosition.X = (WorldPosition.X * (1 - FollowPercentage)) + (TargetWorldPosition.X * FollowPercentage);
-            _worldPosition.Y = (WorldPosition.Y * (1 - FollowPercentage)) + (TargetWorldPosition.Y * FollowPercentage);
+            float x = (WorldPosition.X * (1 - FollowPercentage)) + (TargetWorldPosition.X * FollowPercentage);
+            float y = (WorldPosition.Y * (1 - FollowPercentage)) + (TargetWorldPosition.Y * FollowPercentage);
 
-            //TODO: Enlever ce test
+            WorldPosition = new Vector2(x, y);
+
             if (DebugScene?.Map == null)
                 return;
 

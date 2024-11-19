@@ -9,7 +9,7 @@ namespace Rpg.Test.Services
     [TestClass]
     public class KeyboardServiceTest
     {
-        private IKeyboardService? _keyboardService;
+        private KeyboardService? _keyboardService;
 
         [TestInitialize]
         public void Startup()

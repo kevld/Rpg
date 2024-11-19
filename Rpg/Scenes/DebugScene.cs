@@ -41,8 +41,8 @@ namespace Rpg.Scenes
 
         public TiledMap Map { get; private set; }
         public TiledMapRenderer MapRenderer { get; private set; }
-        public List<Entity> CollisionTiles = new List<Entity>();
-        public List<Rectangle> CollisionTilesBounds = new List<Rectangle>();
+        public List<Entity> CollisionTiles = new();
+        public List<Rectangle> CollisionTilesBounds = new();
 
         public int DrawOrder => throw new NotImplementedException();
         public bool Visible => throw new NotImplementedException();
@@ -55,7 +55,7 @@ namespace Rpg.Scenes
 
         public void Initialize()
         {
-            Vector2 playerPosition = new Vector2(250, 250);
+            Vector2 playerPosition = new(250, 250);
 
             Entity player = _entityService.CreatePlayerEntity(x: (int)playerPosition.X, y: (int)playerPosition.Y, 15, 20, idTag: "localPlayer");
             _entityService.LocalPlayer = player;
@@ -89,9 +89,7 @@ namespace Rpg.Scenes
 
                         if (rotation == 90 || rotation == -90)
                         {
-                            int tempW = width;
-                            width = height;
-                            height = tempW;
+                            (height, width) = (width, height);
                             if (rotation == 90)
                                 x -= width;
                             else
@@ -201,7 +199,7 @@ namespace Rpg.Scenes
                 .ToList()
                 .ForEach(e =>
                 {
-                    Rectangle r = new Rectangle(
+                    Rectangle r = new(
                         (int)(e.WorldPosition.X),
                         (int)(e.WorldPosition.Y),
                         (int)e.Size.X,
@@ -295,7 +293,7 @@ namespace Rpg.Scenes
             if (Camera != null && Camera.Name == name)
                 return;
 
-            if (!CameraHelper.CameraTypes.Contains(name))
+            if (!CameraHelper.GetCameraTypes().Contains(name))
                 throw new CameraTypeException("This camera type does not exist");
 
             // Main player camera
@@ -315,7 +313,7 @@ namespace Rpg.Scenes
         private Texture2D GetDebugTexture()
         {
             Color[] az = Enumerable.Range(0, 100).Select(i => Color.White).ToArray();
-            Texture2D texture = new Texture2D(_graphicsService.GraphicsDevice, 10, 10, false, SurfaceFormat.Color);
+            Texture2D texture = new(_graphicsService.GraphicsDevice, 10, 10, false, SurfaceFormat.Color);
             texture.SetData(az);
 
             return texture;
@@ -325,7 +323,7 @@ namespace Rpg.Scenes
         {
             Entity collisionTile = _entityService.CreateEntity(x, y, width, height);
             collisionTile.AddTag("collision");
-            collisionTile.AddComponent(new CollisionComponent(collisionTile, _graphicsService, width, height));
+            collisionTile.AddComponent(new CollisionComponent(collisionTile, width, height));
         }
 
         #endregion

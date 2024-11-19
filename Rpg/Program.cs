@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace Rpg;
+
+using System.Diagnostics.CodeAnalysis;
 
 [ExcludeFromCodeCoverage]
 internal class Program

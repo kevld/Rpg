@@ -15,8 +15,8 @@ namespace Rpg.Components
 
         public int UpdateOrder => throw new NotImplementedException();
 
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
+        public event EventHandler<EventArgs> EnabledChanged = null;
+        public event EventHandler<EventArgs> UpdateOrderChanged = null;
 
         public Component(Entity owner)
         {

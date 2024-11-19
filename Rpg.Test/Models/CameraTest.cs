@@ -37,14 +37,6 @@ namespace Rpg.Test.Models
         }
 
         [TestMethod]
-        public void WorldPosition_Default()
-        {
-            Camera camera = new();
-
-            Assert.AreEqual(Vector2.Zero, camera.WorldPosition);
-        }
-
-        [TestMethod]
         public void FollowPercentage_Default()
         {
             Camera camera = new();
@@ -134,14 +126,7 @@ namespace Rpg.Test.Models
             Assert.ThrowsException<NegativeVectorException>(() => new Camera(size: v), "Screen size cannot have negative value");
         }
 
-        [TestMethod]
-        public void WorldPosition_Set()
-        {
-            Vector2 v = new(50, 50);
-            Camera camera = new(worldPosition: v);
-
-            Assert.AreEqual(v * -1, camera.WorldPosition);
-        }
+      
 
         [TestMethod]
         public void FollowPercentage_Set()
@@ -236,9 +221,7 @@ namespace Rpg.Test.Models
             camera.SetWorldPosition(Vector2.Zero);
 
             Assert.AreEqual(Vector2.Zero, camera.TargetWorldPosition);
-            Assert.AreEqual(Vector2.Zero, camera.WorldPosition);
             Assert.AreEqual(Vector2.Zero, camera.PreviousWorldPosition);
-            Assert.AreEqual(camera.TargetWorldPosition, camera.WorldPosition);
             Assert.AreEqual(camera.TargetWorldPosition, camera.PreviousWorldPosition);
         }
 
@@ -251,7 +234,6 @@ namespace Rpg.Test.Models
             camera.SetWorldPosition(newPosition);
 
             Vector2 resut = newPosition * -1;
-            Assert.AreEqual(resut, camera.WorldPosition);
             Assert.AreEqual(resut, camera.TargetWorldPosition);
             Assert.AreEqual(resut, camera.PreviousWorldPosition);
         }
@@ -367,26 +349,6 @@ namespace Rpg.Test.Models
 
             Assert.ThrowsException<ArgumentNullException>(() => camera.Initialize(), "Scene.Map is null");
         }
-
-        // TODO:Obsolete
-        //[TestMethod]
-        //public void Initialize_SceneIsOk()
-        //{
-        //    Camera camera = new Camera();
-
-        //    DebugScene debugScene = new DebugScene(new ContentService(), new GraphicsService(null));
-        //    //debugScene.Map = new MonoGame.Extended.Tiled.TiledMap();
-        //    //camera.LinkScene(debugScene);
-
-        //    try
-        //    {
-        //        camera.Initialize();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Assert.Fail(e.Message);
-        //    }
-        //}
 
         [TestMethod]
         public void Update_IsOk()

@@ -13,7 +13,7 @@ namespace Rpg.Test.Components
         private Component? _inputComponent;
         private IEntityService? _entityService;
 
-        private IKeyboardService? _keyboardService;
+        private KeyboardService? _keyboardService;
 
         [TestInitialize]
         public void Startup()

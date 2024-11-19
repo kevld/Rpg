@@ -8,9 +8,11 @@ namespace Rpg.Helpers
 {
     public static class CameraHelper
     {
-        public static readonly List<string> CameraTypes = new List<string>()
+        private static readonly List<string> CameraTypeList = new()
         {
             "main"
         };
+
+        public static IReadOnlyCollection<string> GetCameraTypes() => CameraTypeList;
     }
 }

@@ -15,19 +15,19 @@ namespace Rpg.Services
 
         public Entity CreateEntity()
         {
-            Entity entity = new Entity();
+            Entity entity = new();
             _entities.Add(entity);
             return entity;
         }
 
         public Entity CreateEntity(int x, int y, int width, int height)
         {
-            var e = new Entity()
+            Entity e = new()
             {
                 WorldPosition = new Vector2(x, y),
                 Size = new Vector2(width, height)
             };
-           _entities.Add(e);
+            _entities.Add(e);
             return e;
 
         }
@@ -55,9 +55,9 @@ namespace Rpg.Services
             playerEntity.AddTag("player");
 
             // Add transform and sprites
-            //playerEntity.AddComponent(new TransformComponent(x, y, width, height));
+            //TODO:playerEntity.AddComponent(new TransformComponent(x, y, width, height));
             playerEntity.AddComponent(new CollisionComponent(
-                    playerEntity, null, new Vector2(13, 7), new Vector2(0, 12)
+                    playerEntity, new Vector2(13, 7), new Vector2(0, 12)
                 ));
 
             LocalPlayer = playerEntity;
