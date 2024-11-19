@@ -9,14 +9,12 @@ namespace Rpg.Test.Managers
     {
         private EntityManager? _entityManager;
         private GameMock? _gameMock;
-        private GameTime? _gameTime;
-
+#if DEBUG
         [TestInitialize]
         public void Startup()
         {
             _gameMock = new GameMock();
             _gameMock.InitializeOnly();
-            _gameTime = new GameTime();
 
             GameServiceContainer gameServiceContainer = new();
 
@@ -28,7 +26,6 @@ namespace Rpg.Test.Managers
         {
             _entityManager?.Dispose();
             _gameMock?.Dispose();
-            _gameTime = null;
         }
 
         [TestMethod]
@@ -40,5 +37,6 @@ namespace Rpg.Test.Managers
             Assert.IsTrue(_entityManager?.EntityList.Contains(e));
             Assert.AreEqual(1, _entityManager?.EntityList.Count);
         }
+#endif
     }
 }

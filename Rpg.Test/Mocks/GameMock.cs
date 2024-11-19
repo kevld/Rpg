@@ -13,7 +13,7 @@ namespace Rpg.Test.Mocks
             GraphicsAdapter.UseReferenceDevice = true;
             GraphicsAdapter.UseDriverType = GraphicsAdapter.DriverType.FastSoftware;
             GraphicsDeviceManager = new GraphicsDeviceManager(this);
-            
+
         }
 
         public void InitializeOnly()

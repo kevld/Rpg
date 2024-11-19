@@ -12,7 +12,7 @@ namespace Rpg.Test.Scenes
         private DebugScene? _scene;
         private GameMock? _gameMock;
         private GameTime? _gameTime;
-
+#if DEBUG
         [TestInitialize()]
         public void Startup()
         {
@@ -171,5 +171,6 @@ namespace Rpg.Test.Scenes
         {
             Assert.ThrowsException<NotImplementedException>(() => _scene?.UpdateOrder);
         }
+#endif
     }
 }

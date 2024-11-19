@@ -5,7 +5,6 @@ using Rpg.Exceptions;
 using Rpg.Models;
 using Rpg.Scenes;
 using Rpg.Services;
-using SharpDX.XAudio2;
 
 namespace Rpg.Test.Models
 {

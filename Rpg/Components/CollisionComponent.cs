@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework;
 using Rpg.Interfaces;
 using Rpg.Models;
-using SharpDX.Direct3D9;
-using SharpDX.MediaFoundation;
 using System;
 
 namespace Rpg.Components

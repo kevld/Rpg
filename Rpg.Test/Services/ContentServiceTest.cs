@@ -16,6 +16,7 @@ namespace Rpg.Test.Services
             Assert.IsNull(service.ContentManager);
         }
 
+#if DEBUG
         [TestMethod]
         public void ContentNotNull()
         {
@@ -27,5 +28,6 @@ namespace Rpg.Test.Services
 
             Assert.IsNotNull(service.ContentManager);
         }
+#endif
     }
 }

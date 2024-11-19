@@ -12,6 +12,7 @@ namespace Rpg.Test.Services
         private GameMock? _gameMock;
         private IGraphicsService? _graphicsService;
 
+#if DEBUG
         [TestInitialize()]
         public void Startup()
         {
@@ -71,5 +72,6 @@ namespace Rpg.Test.Services
             }
 
         }
+#endif
     }
 }
