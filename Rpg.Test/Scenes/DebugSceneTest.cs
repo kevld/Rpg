@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Rpg.Core.Scenes;
 using Rpg.Core.Services.Interfaces;
 using Rpg.Scenes;
 using Rpg.Services;
@@ -9,9 +10,10 @@ namespace Rpg.Test.Scenes
     [TestClass]
     public class DebugSceneTest
     {
-        private DebugScene? _scene;
+        private BaseScene? _scene;
         private GameMock? _gameMock;
         private GameTime? _gameTime;
+        private EntityService? _entityService;
 #if DEBUG
         [TestInitialize()]
         public void Startup()
@@ -22,15 +24,14 @@ namespace Rpg.Test.Scenes
 
             IContentService contentServiceMock = new ContentServiceMock(_gameMock);
             IGraphicsService graphicsServiceMock = new GraphicsServiceMock(_gameMock);
-            IEntityService entityService = new EntityService();
+            _entityService = new EntityService();
 
             GameServiceContainer gameServiceContainer = new();
             gameServiceContainer.AddService(contentServiceMock);
-            gameServiceContainer.AddService(graphicsServiceMock);
-            gameServiceContainer.AddService(entityService);
+            gameServiceContainer.AddService<IGraphicsService>(graphicsServiceMock);
+            gameServiceContainer.AddService<IEntityService>(_entityService);
             gameServiceContainer.AddService<IKeyboardService>(new KeyboardService());
 
-            //TODO: chemin du json
             gameServiceContainer.AddService<IConfigService>(new ConfigService(null));
 
             _scene = new DebugScene(gameServiceContainer);
@@ -39,6 +40,7 @@ namespace Rpg.Test.Scenes
         [TestCleanup()]
         public void Cleanup()
         {
+            _entityService?.Dispose();
             _scene?.Dispose();
             _gameMock?.Dispose();
         }
@@ -48,6 +50,7 @@ namespace Rpg.Test.Scenes
         {
             Assert.AreEqual("DebugScene", _scene?.Name);
         }
+
 
         [TestMethod]
         public void GetSceneBackground_BackgroundColorOk()
@@ -94,7 +97,7 @@ namespace Rpg.Test.Scenes
         public void DisposeMap_MapIsNull()
         {
             _scene?.LoadMap();
-            _scene?.DisposeMap();
+            _scene?.Dispose();
 
             Assert.IsNull(_scene?.Map);
         }
@@ -103,7 +106,7 @@ namespace Rpg.Test.Scenes
         public void DisposeMap_MapRendererIsNull()
         {
             _scene?.LoadMap();
-            _scene?.DisposeMap();
+            _scene?.Dispose();
 
             Assert.IsNull(_scene?.MapRenderer);
         }
@@ -146,6 +149,14 @@ namespace Rpg.Test.Scenes
             Assert.AreEqual("main", _scene?.Camera.Name);
             Assert.AreEqual(2.5f, _scene?.Camera.Zoom);
             Assert.AreEqual(Color.Black, _scene?.Camera.BackgroundColour);
+        }
+
+        [TestMethod]
+        public void Init_PlayerLocation()
+        {
+            _scene?.Initialize();
+
+            Assert.AreEqual(new Vector2(250, 250), _entityService?.LocalPlayer.WorldPosition);
         }
 #endif
     }

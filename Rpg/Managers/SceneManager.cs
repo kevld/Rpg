@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Rpg.Core.Managers;
-using Rpg.Core.Services.Interfaces;
 using Rpg.Core.Interfaces;
-using Rpg.Scenes;
+using Rpg.Core.Managers;
+using Rpg.Core.Scenes;
+using Rpg.Core.Services.Interfaces;
 using System;
 
 namespace Rpg.Managers
@@ -11,13 +11,14 @@ namespace Rpg.Managers
     public class SceneManager : BaseManager, IInitializable, Core.Interfaces.IDrawable, IUpdatable
     {
         private readonly IGraphicsService _graphicService;
+        private readonly IEntityService _entityService;
 
-        public DebugScene ActiveScene { get; private set; }
+        public BaseScene ActiveScene { get; private set; }
 
         public SceneManager(GameServiceContainer services) : base(services)
         {
-            var graphicService = services.GetService<IGraphicsService>();
-            _graphicService = graphicService;
+            _graphicService = services.GetService<IGraphicsService>();
+            _entityService = services.GetService<IEntityService>();
         }
 
         #region public
@@ -54,11 +55,13 @@ namespace Rpg.Managers
             ActiveScene.Update(gameTime);
         }
 
-        public void ChangeScene<TDebugScene>()
+        public void ChangeScene<T>()
         {
-            Type t = typeof(TDebugScene);
+            _entityService.ClearEntities();
 
-            if (Activator.CreateInstance(t, [_services]) is DebugScene scene)
+            Type t = typeof(T);
+
+            if (Activator.CreateInstance(t, [_services]) is BaseScene scene)
             {
                 ActiveScene = scene;
                 ActiveScene.LoadMap();

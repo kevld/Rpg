@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
+using Rpg.Core.Interfaces;
 using Rpg.Core.Managers;
 using Rpg.Core.Services.Interfaces;
 using Rpg.Helpers;
-using Rpg.Core.Interfaces;
 using System.Linq;
 
 namespace Rpg.Managers

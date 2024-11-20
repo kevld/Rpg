@@ -12,5 +12,7 @@ namespace Rpg.Core.Services.Interfaces
 
         public Entity CreateEntity();
         public Entity CreateEntity(int x, int y, int width, int height);
+
+        public void ClearEntities();
     }
 }

@@ -5,16 +5,17 @@ using Rpg.Models;
 
 namespace Rpg.Scenes
 {
-    public class DebugScene : BaseScene
+    public class DebugScene2 : BaseScene
     {
-        public DebugScene(GameServiceContainer gameServiceContainer) : base(gameServiceContainer)
+
+        public DebugScene2(GameServiceContainer gameServiceContainer) : base(gameServiceContainer)
         {
-            _name = "DebugScene";
+            _name = "DebugScene2";
         }
 
         public override void Initialize()
         {
-            Vector2 playerPosition = new(250, 250);
+            Vector2 playerPosition = new(350, 350);
 
             Entity player = _entityService.CreatePlayerEntity(x: (int)playerPosition.X, y: (int)playerPosition.Y, 15, 20, idTag: "localPlayer");
             _entityService.LocalPlayer = player;
