@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Rpg.Components
 {
-    public class InputComponent : Component, IInitializable
+    public class InputComponent : BaseComponent, IInitializable
     {
         private readonly Dictionary<Keys, bool> _pressedKeys;
         private readonly IKeyboardService _keyboardService;

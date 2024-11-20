@@ -11,7 +11,7 @@ namespace Rpg.Test.Components
     public class InputComponentTest
     {
         private Entity? _entity;
-        private Component? _inputComponent;
+        private BaseComponent? _inputComponent;
         private IEntityService? _entityService;
 
         private KeyboardService? _keyboardService;

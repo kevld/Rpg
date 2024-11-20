@@ -9,7 +9,7 @@ namespace Rpg.Test.Components
     public class CollisionComponentTest
     {
         private Entity? _owner;
-        private Component? _collisionComponent;
+        private BaseComponent? _collisionComponent;
 
         [TestInitialize]
         public void Startup()

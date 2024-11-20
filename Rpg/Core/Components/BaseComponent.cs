@@ -6,13 +6,13 @@ using System;
 
 namespace Rpg.Core.Components
 {
-    public abstract class Component : DisposableObject, IInitializable, IUpdatable
+    public abstract class BaseComponent : DisposableObject, IInitializable, IUpdatable
     {
         private readonly Entity _owner;
 
         public Entity Owner => _owner;
 
-        protected Component(Entity owner)
+        protected BaseComponent(Entity owner)
         {
             ArgumentNullException.ThrowIfNull(owner);
 
