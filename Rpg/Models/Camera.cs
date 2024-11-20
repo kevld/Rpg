@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Rpg.Exceptions;
 using Rpg.Core.Interfaces;
-using Rpg.Scenes;
+using Rpg.Core.Scenes;
+using Rpg.Exceptions;
 using System;
 
 namespace Rpg.Models
@@ -29,7 +29,7 @@ namespace Rpg.Models
 
         public Entity TrackedEntity { get; private set; }
         public Entity OwnerEntity { get; private set; }
-        private DebugScene DebugScene { get; set; }
+        private BaseScene Scene { get; set; }
 
         public Camera(
             string name = "",
@@ -43,7 +43,7 @@ namespace Rpg.Models
             int borderThickness = 0,
             Entity trackedEntity = null,
             Entity ownerEntity = null,
-            DebugScene debugScene = null
+            BaseScene scene = null
             )
         {
             Name = string.IsNullOrEmpty(name) ? Guid.NewGuid().ToString() : name;
@@ -69,7 +69,7 @@ namespace Rpg.Models
             BorderThickness = borderThickness;
             TrackedEntity = trackedEntity;
             OwnerEntity = ownerEntity;
-            DebugScene = debugScene;
+            Scene = scene;
         }
 
         public void SetWorldPosition(Vector2 position)
@@ -116,7 +116,7 @@ namespace Rpg.Models
 
         public void Initialize()
         {
-            ArgumentNullException.ThrowIfNull(DebugScene);
+            ArgumentNullException.ThrowIfNull(Scene);
         }
 
         public void Update(GameTime gameTime)
@@ -137,7 +137,7 @@ namespace Rpg.Models
 
             WorldPosition = new Vector2(x, y);
 
-            if (DebugScene?.Map == null)
+            if (Scene?.Map == null)
                 return;
 
             // Calculate map bounds
@@ -162,9 +162,9 @@ namespace Rpg.Models
 
             // width
             // if camera is bigger than map
-            if (Size.X > (DebugScene.Map.Width * DebugScene.Map.TileWidth * Zoom))
+            if (Size.X > (Scene.Map.Width * Scene.Map.TileWidth * Zoom))
             {
-                width = (DebugScene.Map.Width * DebugScene.Map.TileWidth / 2) * -1;
+                width = (Scene.Map.Width * Scene.Map.TileWidth / 2) * -1;
             }
             else
             {
@@ -174,9 +174,9 @@ namespace Rpg.Models
                     width = (Size.X / Zoom / 2) * -1;
                 }
                 // clamp to right
-                if (WorldPosition.X * -1 > (DebugScene.Map.Width * DebugScene.Map.TileWidth) - (Size.X / Zoom / 2))
+                if (WorldPosition.X * -1 > (Scene.Map.Width * Scene.Map.TileWidth) - (Size.X / Zoom / 2))
                 {
-                    width = ((DebugScene.Map.Width * DebugScene.Map.TileWidth) - (Size.X / Zoom / 2)) * -1;
+                    width = ((Scene.Map.Width * Scene.Map.TileWidth) - (Size.X / Zoom / 2)) * -1;
                 }
             }
 
@@ -189,9 +189,9 @@ namespace Rpg.Models
 
             // height
             // if camera is bigger than map
-            if (Size.Y > (DebugScene.Map.Height * DebugScene.Map.TileHeight * Zoom))
+            if (Size.Y > (Scene.Map.Height * Scene.Map.TileHeight * Zoom))
             {
-                height = (DebugScene.Map.Height * DebugScene.Map.TileHeight / 2) * -1;
+                height = (Scene.Map.Height * Scene.Map.TileHeight / 2) * -1;
             }
             else
             {
@@ -201,9 +201,9 @@ namespace Rpg.Models
                     height = (Size.Y / Zoom / 2) * -1;
                 }
                 // clamp to bottom
-                if (WorldPosition.Y * -1 > (DebugScene.Map.Height * DebugScene.Map.TileHeight) - (Size.Y / Zoom / 2))
+                if (WorldPosition.Y * -1 > (Scene.Map.Height * Scene.Map.TileHeight) - (Size.Y / Zoom / 2))
                 {
-                    height = ((DebugScene.Map.Height * DebugScene.Map.TileHeight) - (Size.Y / Zoom / 2)) * -1;
+                    height = ((Scene.Map.Height * Scene.Map.TileHeight) - (Size.Y / Zoom / 2)) * -1;
                 }
             }
 

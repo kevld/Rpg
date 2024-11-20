@@ -790,6 +790,11 @@
 /processor:TiledMapProcessor
 /build:Maps/DebugScene.tmx
 
+#begin Maps/DebugScene2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/DebugScene2.tmx
+
 #begin Maps/Map1.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor

@@ -14,6 +14,12 @@ namespace Rpg.Services
 
         public Entity LocalPlayer { get; set; }
 
+        public void ClearEntities()
+        {
+            LocalPlayer = null;
+            _entities.Clear();
+        }
+
         public Entity CreateEntity()
         {
             Entity entity = new();
