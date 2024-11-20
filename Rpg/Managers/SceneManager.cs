@@ -2,13 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Rpg.Core.Managers;
 using Rpg.Core.Services.Interfaces;
-using Rpg.Interfaces;
+using Rpg.Core.Interfaces;
 using Rpg.Scenes;
 using System;
 
 namespace Rpg.Managers
 {
-    public class SceneManager : BaseManager, IInitializable, Interfaces.IDrawable, IUpdatable
+    public class SceneManager : BaseManager, IInitializable, Core.Interfaces.IDrawable, IUpdatable
     {
         private readonly IGraphicsService _graphicService;
 

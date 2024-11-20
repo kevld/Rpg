@@ -1,4 +1,4 @@
-﻿namespace Rpg.Interfaces
+﻿namespace Rpg.Core.Interfaces
 {
     public interface IContentLoadable
     {

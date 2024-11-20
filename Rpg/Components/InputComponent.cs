@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Rpg.Core.Components;
+using Rpg.Core.Interfaces;
 using Rpg.Core.Services.Interfaces;
 using Rpg.EventsArgsModels;
 using Rpg.Helpers;
-using Rpg.Interfaces;
 using Rpg.Models;
 using System;
 using System.Collections.Generic;
