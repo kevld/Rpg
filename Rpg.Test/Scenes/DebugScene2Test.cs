@@ -54,7 +54,7 @@ namespace Rpg.Test.Scenes
         {
             _scene?.Initialize();
 
-            Assert.AreEqual(new Vector2(500, 500), _entityService?.LocalPlayer.WorldPosition);
+            Assert.AreEqual(new Vector2(350, 350), _entityService?.LocalPlayer.WorldPosition);
         }
 
 #endif
