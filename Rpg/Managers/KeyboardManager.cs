@@ -4,7 +4,7 @@ using MonoGame.Extended.Input;
 using Rpg.Core.Managers;
 using Rpg.Core.Services.Interfaces;
 using Rpg.Helpers;
-using Rpg.Interfaces;
+using Rpg.Core.Interfaces;
 using System.Linq;
 
 namespace Rpg.Managers

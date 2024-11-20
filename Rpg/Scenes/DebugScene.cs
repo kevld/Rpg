@@ -7,14 +7,14 @@ using Rpg.Components;
 using Rpg.Core.Services.Interfaces;
 using Rpg.Exceptions;
 using Rpg.Helpers;
-using Rpg.Interfaces;
+using Rpg.Core.Interfaces;
 using Rpg.Models;
 using System;
 using System.Linq;
 
 namespace Rpg.Scenes
 {
-    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, Interfaces.IDrawable, IUpdatable
+    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, Core.Interfaces.IDrawable, IUpdatable
     {
         private readonly string _name = "DebugScene";
         private readonly Color _backgroundColor = Color.Black;

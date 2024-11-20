@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Rpg.Exceptions;
-using Rpg.Interfaces;
+using Rpg.Core.Interfaces;
 using Rpg.Scenes;
 using System;
 

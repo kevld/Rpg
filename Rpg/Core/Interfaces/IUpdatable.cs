@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Rpg.Interfaces
+namespace Rpg.Core.Interfaces
 {
     public interface IUpdatable
     {
