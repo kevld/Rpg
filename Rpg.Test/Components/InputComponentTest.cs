@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Rpg.Components;
-using Rpg.Interfaces;
+using Rpg.Core.Components;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Models;
 using Rpg.Services;
 
@@ -13,7 +14,7 @@ namespace Rpg.Test.Components
         private Component? _inputComponent;
         private IEntityService? _entityService;
 
-        private IKeyboardService? _keyboardService;
+        private KeyboardService? _keyboardService;
 
         [TestInitialize]
         public void Startup()
@@ -77,7 +78,7 @@ namespace Rpg.Test.Components
 
             _keyboardService?.SendKeyEvent(Keys.Z, true);
             Assert.IsTrue(inputComponent?.GetPressedKeys().Contains(Keys.Z));
-            
+
             _keyboardService?.SendKeyEvent(Keys.Z, false);
             Assert.IsFalse(inputComponent?.GetPressedKeys().Contains(Keys.Z));
         }
@@ -125,18 +126,6 @@ namespace Rpg.Test.Components
             Assert.IsFalse(inputComponent?.GetPressedKeys().Contains(Keys.Z));
             Assert.IsFalse(inputComponent?.GetPressedKeys().Contains(Keys.Q));
 
-        }
-
-        [TestMethod]
-        public void Enabled_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _inputComponent?.Enabled);
-        }
-
-        [TestMethod]
-        public void UpdateOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _inputComponent?.UpdateOrder);
         }
     }
 }

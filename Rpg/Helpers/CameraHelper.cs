@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Rpg.Helpers
 {
     public static class CameraHelper
     {
-        public static readonly List<string> CameraTypes = new List<string>()
+        private static readonly List<string> CameraTypeList = new()
         {
             "main"
         };
+
+        public static IReadOnlyCollection<string> GetCameraTypes() => CameraTypeList;
     }
 }

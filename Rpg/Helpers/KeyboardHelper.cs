@@ -5,11 +5,13 @@ namespace Rpg.Helpers
 {
     public static class KeyboardHelper
     {
-        public static readonly List<Keys> TriggerableKeys = new List<Keys>()
+        private static readonly List<Keys> TriggerableKeys = new()
         {
             Keys.Z, Keys.Q, Keys.S, Keys.D,
             Keys.Up, Keys.Down, Keys.Left, Keys.Right,
             Keys.Enter, Keys.Escape, Keys.Space
         };
+
+        public static IReadOnlyCollection<Keys> GetTriggerableKeys() => TriggerableKeys;
     }
 }

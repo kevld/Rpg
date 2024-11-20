@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Rpg.Interfaces;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Managers;
 using Rpg.Scenes;
 using Rpg.Services;
@@ -12,11 +12,11 @@ namespace Rpg
     [ExcludeFromCodeCoverage]
     public class Game1 : Game
     {
-        private readonly IGraphicsService _graphicsService;
-        private readonly IContentService _contentService;
-        private readonly IKeyboardService _keyboardService;
-        private readonly IEntityService _entityService;
-        private readonly IConfigService _configService;
+        private readonly GraphicsService _graphicsService;
+        private readonly ContentService _contentService;
+        private readonly KeyboardService _keyboardService;
+        private readonly EntityService _entityService;
+        private readonly ConfigService _configService;
 
         private readonly string _configFilePath = "Settings.json";
 

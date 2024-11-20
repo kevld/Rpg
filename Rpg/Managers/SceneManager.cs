@@ -1,45 +1,23 @@
-﻿using DotTiled.Serialization;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
+using Rpg.Core.Managers;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Interfaces;
-using Rpg.Models;
 using Rpg.Scenes;
-using Rpg.Services;
 using System;
 
 namespace Rpg.Managers
 {
-    public class SceneManager : DIManager, IInitializable, IDrawable, IUpdateable
+    public class SceneManager : BaseManager, IInitializable, Interfaces.IDrawable, IUpdatable
     {
         private readonly IGraphicsService _graphicService;
-        private readonly IContentService _contentService;
-        private readonly GameServiceContainer _services;
 
         public DebugScene ActiveScene { get; private set; }
-
-        public int DrawOrder => throw new NotImplementedException();
-
-        public bool Visible => throw new NotImplementedException();
-
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
-
-
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
 
         public SceneManager(GameServiceContainer services) : base(services)
         {
             var graphicService = services.GetService<IGraphicsService>();
             _graphicService = graphicService;
-
-            var contentService = services.GetService<IContentService>();
-            _contentService = contentService;
-            this._services = services;
         }
 
         #region public

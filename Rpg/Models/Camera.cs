@@ -4,26 +4,16 @@ using Rpg.Exceptions;
 using Rpg.Interfaces;
 using Rpg.Scenes;
 using System;
-using System.Reflection.Metadata;
 
 namespace Rpg.Models
 {
-    public class Camera : IInitializable, IUpdateable
+    public class Camera : IInitializable, IUpdatable
     {
         public string Name { get; private set; }
         public Vector2 ScreenPosition { get; private set; }
         public Vector2 Size { get; private set; }
+        private Vector2 WorldPosition { get; set; }
 
-        private Vector2 _worldPosition;
-
-        public Vector2 WorldPosition
-        {
-            get => _worldPosition;
-            set
-            {
-                _worldPosition = value;
-            }
-        }
         public Vector2 PreviousWorldPosition { get; private set; }
         public Vector2 TargetWorldPosition { get; private set; }
 
@@ -40,10 +30,6 @@ namespace Rpg.Models
         public Entity TrackedEntity { get; private set; }
         public Entity OwnerEntity { get; private set; }
         private DebugScene DebugScene { get; set; }
-
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
 
         public Camera(
             string name = "",
@@ -85,9 +71,6 @@ namespace Rpg.Models
             OwnerEntity = ownerEntity;
             DebugScene = debugScene;
         }
-
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
 
         public void SetWorldPosition(Vector2 position)
         {
@@ -149,10 +132,11 @@ namespace Rpg.Models
             }
 
 
-            _worldPosition.X = (WorldPosition.X * (1 - FollowPercentage)) + (TargetWorldPosition.X * FollowPercentage);
-            _worldPosition.Y = (WorldPosition.Y * (1 - FollowPercentage)) + (TargetWorldPosition.Y * FollowPercentage);
+            float x = (WorldPosition.X * (1 - FollowPercentage)) + (TargetWorldPosition.X * FollowPercentage);
+            float y = (WorldPosition.Y * (1 - FollowPercentage)) + (TargetWorldPosition.Y * FollowPercentage);
 
-            //TODO: Enlever ce test
+            WorldPosition = new Vector2(x, y);
+
             if (DebugScene?.Map == null)
                 return;
 

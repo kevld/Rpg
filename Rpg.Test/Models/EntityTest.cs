@@ -1,5 +1,4 @@
 ﻿using Rpg.Models;
-using System.Xml.Serialization;
 
 namespace Rpg.Test.Models
 {
@@ -216,18 +215,6 @@ namespace Rpg.Test.Models
             Assert.IsTrue(entity?.HasTag("Tag2"));
             Assert.IsFalse(entity?.HasTag(null));
             Assert.IsFalse(entity?.HasTag(""));
-        }
-
-        [TestMethod]
-        public void Enabled_Exception()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => entity?.Enabled);
-        }
-
-        [TestMethod]
-        public void UpdateOrder_Exception()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => entity?.UpdateOrder);
         }
     }
 }

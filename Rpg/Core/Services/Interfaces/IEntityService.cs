@@ -1,9 +1,9 @@
 ﻿using Rpg.Models;
 using System.Collections.Generic;
 
-namespace Rpg.Interfaces
+namespace Rpg.Core.Services.Interfaces
 {
-    public interface IEntityService
+    public interface IEntityService : IBaseService
     {
         public IReadOnlyCollection<Entity> GetEntities();
         public Entity LocalPlayer { get; set; }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Rpg.Components;
-using Rpg.Interfaces;
+using Rpg.Core.Components;
 using Rpg.Models;
-using Rpg.Services;
-using Rpg.Test.Mocks;
 
 namespace Rpg.Test.Components
 {
@@ -29,13 +27,13 @@ namespace Rpg.Test.Components
         [TestMethod]
         public void Ctor_Default_OwnerNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new CollisionComponent(null, null, default, default));
+            Assert.ThrowsException<ArgumentNullException>(() => new CollisionComponent(null, default, default));
         }
 
         [TestMethod]
         public void Ctor2_Default_OwnerNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new CollisionComponent(null, null, 0, 0));
+            Assert.ThrowsException<ArgumentNullException>(() => new CollisionComponent(null, 0, 0));
         }
 
         [TestMethod]
@@ -43,7 +41,7 @@ namespace Rpg.Test.Components
         {
             _owner = new Entity();
 
-            _collisionComponent = new CollisionComponent(_owner, null, new Vector2(10, 10), new Vector2(15, 15));
+            _collisionComponent = new CollisionComponent(_owner, new Vector2(10, 10), new Vector2(15, 15));
 
             Assert.IsNotNull(_collisionComponent);
             Assert.IsNotNull(_collisionComponent.Owner);
@@ -59,7 +57,7 @@ namespace Rpg.Test.Components
         {
             _owner = new Entity();
 
-            _collisionComponent = new CollisionComponent(_owner, null, 10, 10, 15, 15);
+            _collisionComponent = new CollisionComponent(_owner, 10, 10, 15, 15);
 
             Assert.IsNotNull(_collisionComponent);
             Assert.IsNotNull(_collisionComponent.Owner);
@@ -74,7 +72,7 @@ namespace Rpg.Test.Components
         public void GetBoundingBox_XY()
         {
             _owner = new Entity();
-            _collisionComponent = new CollisionComponent(_owner, null, 10, 10, 15, 15);
+            _collisionComponent = new CollisionComponent(_owner, 10, 10, 15, 15);
 
             var expected = new Rectangle(40, 60, 10, 10);
 
@@ -86,7 +84,7 @@ namespace Rpg.Test.Components
         public void GetBoundingBox_Vector()
         {
             _owner = new Entity();
-            _collisionComponent = new CollisionComponent(_owner, null, 10, 10, 15, 15);
+            _collisionComponent = new CollisionComponent(_owner, 10, 10, 15, 15);
 
             var expected = new Rectangle(40, 60, 10, 10);
 
@@ -98,7 +96,7 @@ namespace Rpg.Test.Components
         public void GetBroadphaseBox()
         {
             _owner = new Entity();
-            _collisionComponent = new CollisionComponent(_owner, null, 10, 10, 15, 15);
+            _collisionComponent = new CollisionComponent(_owner, 10, 10, 15, 15);
 
             var expected = new Rectangle(0, 0, 50, 90);
 
@@ -110,7 +108,7 @@ namespace Rpg.Test.Components
         public void GetBroadphaseBox_velocityInferiorToZero()
         {
             _owner = new Entity();
-            _collisionComponent = new CollisionComponent(_owner, null, 10, 10, 15, 15);
+            _collisionComponent = new CollisionComponent(_owner, 10, 10, 15, 15);
 
             var expected = new Rectangle(-50, -90, 50, 90);
 

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Rpg.Core.Services;
+using Rpg.Core.Services.Interfaces;
 using Rpg.EventsArgsModels;
-using Rpg.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace Rpg.Services
 {
-    public class KeyboardService : IKeyboardService
+    public class KeyboardService : BaseService, IKeyboardService
     {
 
         public event EventHandler KeyboardEvent;
@@ -20,18 +20,9 @@ namespace Rpg.Services
             });
         }
 
-        public void Dispose()
+        protected override void CleanIfDisposing()
         {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                KeyboardEvent = null;
-            }
+            KeyboardEvent = null;
         }
     }
 }

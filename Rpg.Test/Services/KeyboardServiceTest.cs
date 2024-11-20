@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Rpg.Core.Services.Interfaces;
 using Rpg.EventsArgsModels;
-using Rpg.Interfaces;
 using Rpg.Services;
-using System.ComponentModel;
 
 namespace Rpg.Test.Services
 {
     [TestClass]
     public class KeyboardServiceTest
     {
-        private IKeyboardService? _keyboardService;
+        private KeyboardService? _keyboardService;
 
         [TestInitialize]
         public void Startup()

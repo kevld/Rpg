@@ -33,17 +33,5 @@ namespace Rpg.Test.Managers
                 Assert.Fail(e.Message);
             }
         }
-
-        [TestMethod]
-        public void DrawOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _keyboardManager?.UpdateOrder);
-        }
-
-        [TestMethod]
-        public void Enabled_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _keyboardManager?.Enabled);
-        }
     }
 }

@@ -5,7 +5,6 @@ namespace Rpg.Test.Mocks
 {
     public class GameMock : Game
     {
-        public SpriteBatch SpriteBatch { get; set; }
         public GraphicsDeviceManager GraphicsDeviceManager { get; set; }
         public GameMock()
         {

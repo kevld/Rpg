@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
-namespace Rpg.Interfaces
+namespace Rpg.Core.Services.Interfaces
 {
-    public interface IContentService
+    public interface IContentService : IBaseService
     {
         public ContentManager ContentManager { get; set; }
     }

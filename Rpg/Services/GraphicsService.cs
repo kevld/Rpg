@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Rpg.Interfaces;
-using System;
+using Rpg.Core.Services;
+using Rpg.Core.Services.Interfaces;
 
 namespace Rpg.Services
 {
-    public class GraphicsService : IGraphicsService
+    public class GraphicsService : BaseService, IGraphicsService
     {
         public GraphicsDeviceManager Graphics { get; set; }
         public GraphicsDevice GraphicsDevice { get; set; }
@@ -26,13 +26,6 @@ namespace Rpg.Services
 
             ScreenWidth = Graphics.PreferredBackBufferWidth;
             ScreenHeight = Graphics.PreferredBackBufferHeight;
-        }
-
-        ~GraphicsService() => Dispose();
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
         }
     }
 }

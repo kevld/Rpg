@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Rpg.Interfaces;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Managers;
 using Rpg.Scenes;
 using Rpg.Services;
@@ -98,33 +98,10 @@ namespace Rpg.Test.Managers
         [TestMethod]
         public void Ctor_NoServices_ThrowsException()
         {
-            var ex = Assert.ThrowsException<ArgumentNullException>(() => new SceneManager(null));
-            Assert.AreEqual("GameServiceContainser is null", ex.ParamName);
+            var ex = Assert.ThrowsException<NullReferenceException>(() => new SceneManager(null));
+            Assert.AreEqual("Object reference not set to an instance of an object.", ex.Message);
         }
 
-        [TestMethod]
-        public void DrawOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _sceneManager?.DrawOrder);
-        }
-
-        [TestMethod]
-        public void Enabled_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _sceneManager?.Enabled);
-        }
-
-        [TestMethod]
-        public void VisibleOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _sceneManager?.Visible);
-        }
-
-        [TestMethod]
-        public void UpdateOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _sceneManager?.UpdateOrder);
-        }
 #endif
     }
 }

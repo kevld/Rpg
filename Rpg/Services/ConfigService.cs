@@ -1,16 +1,20 @@
-﻿using Rpg.Interfaces;
+﻿using Rpg.Core.Services;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Models.Config;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
 
 namespace Rpg.Services
 {
-    public class ConfigService : IConfigService
+    public class ConfigService : BaseService, IConfigService
     {
         private readonly Settings _settings;
+        private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+        };
 
         public bool IsDebug => _settings.Globals.EnableDebug;
 
@@ -24,15 +28,10 @@ namespace Rpg.Services
 
             try
             {
-                using (StreamReader r = new StreamReader(configFilePath))
-                {
-                    string json = r.ReadToEnd();
+                using StreamReader r = new StreamReader(configFilePath);
+                string json = r.ReadToEnd();
 
-                    _settings = JsonSerializer.Deserialize<Settings>(json, new JsonSerializerOptions()
-                    {
-                        PropertyNameCaseInsensitive = true,
-                    });
-                }
+                _settings = JsonSerializer.Deserialize<Settings>(json, _jsonSerializerOptions);
             }
             catch (Exception)
             {

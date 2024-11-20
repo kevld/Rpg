@@ -3,18 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
+using Rpg.Components;
+using Rpg.Core.Services.Interfaces;
+using Rpg.Exceptions;
+using Rpg.Helpers;
 using Rpg.Interfaces;
 using Rpg.Models;
 using System;
 using System.Linq;
-using Rpg.Helpers;
-using Rpg.Exceptions;
-using Rpg.Components;
-using System.Collections.Generic;
 
 namespace Rpg.Scenes
 {
-    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, IDrawable, IUpdateable
+    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, Interfaces.IDrawable, IUpdatable
     {
         private readonly string _name = "DebugScene";
         private readonly Color _backgroundColor = Color.Black;
@@ -28,11 +28,6 @@ namespace Rpg.Scenes
 
         private string PathName => $"Maps/{Name}";
 
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
-
         public string Name => _name;
 
         public Color BackgroundColor => _backgroundColor;
@@ -41,21 +36,12 @@ namespace Rpg.Scenes
 
         public TiledMap Map { get; private set; }
         public TiledMapRenderer MapRenderer { get; private set; }
-        public List<Entity> CollisionTiles = new List<Entity>();
-        public List<Rectangle> CollisionTilesBounds = new List<Rectangle>();
-
-        public int DrawOrder => throw new NotImplementedException();
-        public bool Visible => throw new NotImplementedException();
-
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
 
         public Camera Camera { get; private set; }
 
         public void Initialize()
         {
-            Vector2 playerPosition = new Vector2(250, 250);
+            Vector2 playerPosition = new(250, 250);
 
             Entity player = _entityService.CreatePlayerEntity(x: (int)playerPosition.X, y: (int)playerPosition.Y, 15, 20, idTag: "localPlayer");
             _entityService.LocalPlayer = player;
@@ -74,11 +60,9 @@ namespace Rpg.Scenes
                 Map = _contentService.ContentManager.Load<TiledMap>(PathName);
                 MapRenderer = new TiledMapRenderer(_graphicsService.GraphicsDevice, Map);
 
-                TiledMapObjectLayer collisionLayer = Map.GetLayer<TiledMapObjectLayer>("collision");
+                TiledMapObjectLayer collisionLayer = Map.GetLayer<TiledMapObjectLayer>(MapHelper.LayoutCollision);
                 if (collisionLayer != null)
                 {
-                    CollisionTiles.Clear();
-                    CollisionTilesBounds.Clear();
                     foreach (var collisionObject in collisionLayer.Objects)
                     {
                         int rotation = (int)collisionObject.Rotation;
@@ -89,9 +73,7 @@ namespace Rpg.Scenes
 
                         if (rotation == 90 || rotation == -90)
                         {
-                            int tempW = width;
-                            width = height;
-                            height = tempW;
+                            (height, width) = (width, height);
                             if (rotation == 90)
                                 x -= width;
                             else
@@ -109,8 +91,9 @@ namespace Rpg.Scenes
                 }
 
             }
-            catch (Exception e) //TODO: Ajouter log
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Map = null;
                 MapRenderer = null;
             }
@@ -158,13 +141,13 @@ namespace Rpg.Scenes
 
             if (_configService.IsDebug)
             {
-                Map.Layers.Where(x => x.Name == "collision").ToList().ForEach(l =>
+                Map.Layers.Where(x => x.Name == MapHelper.LayoutCollision).ToList().ForEach(l =>
                 {
                     MapRenderer.Draw(l, Camera.GetTransformMatrix());
                 });
 
                 Map.Layers
-                    .Where(x => x.Properties.Any(p => p.Value.Value == "collision"))
+                    .Where(x => x.Properties.Any(p => p.Value.Value == MapHelper.LayoutCollision))
                     .ToList()
                     .ForEach(layer =>
                     {
@@ -201,7 +184,7 @@ namespace Rpg.Scenes
                 .ToList()
                 .ForEach(e =>
                 {
-                    Rectangle r = new Rectangle(
+                    Rectangle r = new(
                         (int)(e.WorldPosition.X),
                         (int)(e.WorldPosition.Y),
                         (int)e.Size.X,
@@ -295,7 +278,7 @@ namespace Rpg.Scenes
             if (Camera != null && Camera.Name == name)
                 return;
 
-            if (!CameraHelper.CameraTypes.Contains(name))
+            if (!CameraHelper.GetCameraTypes().Contains(name))
                 throw new CameraTypeException("This camera type does not exist");
 
             // Main player camera
@@ -315,7 +298,7 @@ namespace Rpg.Scenes
         private Texture2D GetDebugTexture()
         {
             Color[] az = Enumerable.Range(0, 100).Select(i => Color.White).ToArray();
-            Texture2D texture = new Texture2D(_graphicsService.GraphicsDevice, 10, 10, false, SurfaceFormat.Color);
+            Texture2D texture = new(_graphicsService.GraphicsDevice, 10, 10, false, SurfaceFormat.Color);
             texture.SetData(az);
 
             return texture;
@@ -324,8 +307,8 @@ namespace Rpg.Scenes
         private void CreateCollisionTile(int x, int y, int width, int height)
         {
             Entity collisionTile = _entityService.CreateEntity(x, y, width, height);
-            collisionTile.AddTag("collision");
-            collisionTile.AddComponent(new CollisionComponent(collisionTile, _graphicsService, width, height));
+            collisionTile.AddTag(MapHelper.LayoutCollision);
+            collisionTile.AddComponent(new CollisionComponent(collisionTile, width, height));
         }
 
         #endregion
