@@ -1,9 +1,4 @@
 ﻿using Rpg.Models.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rpg.Test.Models.Config
 {
@@ -27,7 +22,7 @@ namespace Rpg.Test.Models.Config
                     EnableDebug = true
                 }
             };
-            
+
             Assert.IsNotNull(s);
             Assert.IsTrue(s.Globals.EnableDebug);
         }

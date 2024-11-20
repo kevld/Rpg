@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Rpg.Interfaces
+namespace Rpg.Core.Services.Interfaces
 {
-    public interface IGraphicsService : IDisposable
+    public interface IGraphicsService : IBaseService
     {
         public GraphicsDeviceManager Graphics { get; set; }
         public GraphicsDevice GraphicsDevice { get; set; }

@@ -1,24 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Rpg.Core.System;
 using Rpg.Interfaces;
 using Rpg.Models;
 using System;
 
-namespace Rpg.Components
+namespace Rpg.Core.Components
 {
-    public class Component : IInitializable, IUpdateable
+    public abstract class Component : DisposableObject, IInitializable, IUpdatable
     {
         private readonly Entity _owner;
 
         public Entity Owner => _owner;
 
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
-
-        public event EventHandler<EventArgs> EnabledChanged = null;
-        public event EventHandler<EventArgs> UpdateOrderChanged = null;
-
-        public Component(Entity owner)
+        protected Component(Entity owner)
         {
             ArgumentNullException.ThrowIfNull(owner);
 

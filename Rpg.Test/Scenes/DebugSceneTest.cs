@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Rpg.Interfaces;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Scenes;
 using Rpg.Services;
 using Rpg.Test.Mocks;
@@ -146,30 +146,6 @@ namespace Rpg.Test.Scenes
             Assert.AreEqual("main", _scene?.Camera.Name);
             Assert.AreEqual(2.5f, _scene?.Camera.Zoom);
             Assert.AreEqual(Color.Black, _scene?.Camera.BackgroundColour);
-        }
-
-        [TestMethod]
-        public void DrawOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _scene?.DrawOrder);
-        }
-
-        [TestMethod]
-        public void Visible_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _scene?.Visible);
-        }
-
-        [TestMethod]
-        public void Enabled_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _scene?.Enabled);
-        }
-
-        [TestMethod]
-        public void UpdateOrder_ThrowEx()
-        {
-            Assert.ThrowsException<NotImplementedException>(() => _scene?.UpdateOrder);
         }
 #endif
     }

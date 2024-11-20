@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Rpg.Interfaces;
+using Rpg.Core.Managers;
 using Rpg.Models;
 using System.Collections.Generic;
 
 namespace Rpg.Managers
 {
-    public class EntityManager(GameServiceContainer services) : DIManager(services)
+    public class EntityManager(GameServiceContainer services) : BaseManager(services)
     {
         private readonly List<Entity> _entityList = new();
 

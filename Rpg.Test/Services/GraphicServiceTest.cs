@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Rpg.Interfaces;
+﻿using Rpg.Core.Services.Interfaces;
 using Rpg.Services;
 using Rpg.Test.Mocks;
 

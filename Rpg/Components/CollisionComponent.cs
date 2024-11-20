@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.Xna.Framework;
-using Rpg.Interfaces;
+using Rpg.Core.Components;
 using Rpg.Models;
 using System;
 

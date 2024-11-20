@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Rpg.Core.Components;
+using Rpg.Core.Services.Interfaces;
 using Rpg.EventsArgsModels;
 using Rpg.Helpers;
 using Rpg.Interfaces;
@@ -10,9 +12,9 @@ using System.Linq;
 
 namespace Rpg.Components
 {
-    public class InputComponent : Component, IInitializable, IDisposable
+    public class InputComponent : Component, IInitializable
     {
-        private readonly IDictionary<Keys, bool> _pressedKeys;
+        private readonly Dictionary<Keys, bool> _pressedKeys;
         private readonly IKeyboardService _keyboardService;
         private readonly IEntityService _entityService;
 
@@ -58,23 +60,34 @@ namespace Rpg.Components
             float speed = 50; // units/second
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 velocity = direction * 1.2f * speed * deltaTime;
+            Vector2 velocityX = new Vector2(velocity.X, 0);
+            Vector2 velocityY = new Vector2(0, velocity.Y);
 
-            bool hasCollision = false;
+            bool hasCollisionX = false;
+            bool hasCollisionY = false;
 
-            _entityService.GetEntities()
-                .Where(x => x.Id != Owner.Id && x.Components.Any(x => typeof(CollisionComponent) == x.GetType()))
-                .ToList()
-                .ForEach(x =>
-                {
-                    if (Owner.GetProjectionRectangle(velocity).Intersects(x.GetRectangle()))
-                    {
-                        hasCollision = true;
-                    }
-                });
+            var collisionEntities = _entityService.GetEntities()
+                .Where(x => x.Id != Owner.Id && x.Components.Any(x => typeof(CollisionComponent) == x.GetType()));
 
-            if (!hasCollision)
+            foreach (var x in collisionEntities)
             {
-                Owner.WorldPosition += velocity;
+                if (Owner.GetProjectionRectangle(velocityX).Intersects(x.GetRectangle()))
+                {
+                    hasCollisionX = true;
+                }
+                if (Owner.GetProjectionRectangle(velocityY).Intersects(x.GetRectangle()))
+                {
+                    hasCollisionY = true;
+                }
+            }
+
+            if (!hasCollisionX)
+            {
+                Owner.WorldPosition += velocityX;
+            }
+            if (!hasCollisionY)
+            {
+                Owner.WorldPosition += velocityY;
             }
         }
 
@@ -94,12 +107,9 @@ namespace Rpg.Components
 
         #region Dispose
 
-        ~InputComponent() => Dispose();
-
-        public void Dispose()
+        protected override void CleanIfDisposing()
         {
             _keyboardService.KeyboardEvent -= HandleKeyboard;
-            GC.SuppressFinalize(this);
         }
 
         #endregion

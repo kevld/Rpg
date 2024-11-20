@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Rpg.Core.Services.Interfaces;
 using Rpg.EventsArgsModels;
-using Rpg.Interfaces;
 using Rpg.Services;
-using System.ComponentModel;
 
 namespace Rpg.Test.Services
 {

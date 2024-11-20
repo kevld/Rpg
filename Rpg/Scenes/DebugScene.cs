@@ -3,18 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
+using Rpg.Components;
+using Rpg.Core.Services.Interfaces;
+using Rpg.Exceptions;
+using Rpg.Helpers;
 using Rpg.Interfaces;
 using Rpg.Models;
 using System;
 using System.Linq;
-using Rpg.Helpers;
-using Rpg.Exceptions;
-using Rpg.Components;
-using System.Collections.Generic;
 
 namespace Rpg.Scenes
 {
-    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, IDrawable, IUpdateable
+    public class DebugScene(GameServiceContainer gameServiceContainer) : IDisposable, IInitializable, Interfaces.IDrawable, IUpdatable
     {
         private readonly string _name = "DebugScene";
         private readonly Color _backgroundColor = Color.Black;
@@ -28,11 +28,6 @@ namespace Rpg.Scenes
 
         private string PathName => $"Maps/{Name}";
 
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
-
         public string Name => _name;
 
         public Color BackgroundColor => _backgroundColor;
@@ -41,15 +36,6 @@ namespace Rpg.Scenes
 
         public TiledMap Map { get; private set; }
         public TiledMapRenderer MapRenderer { get; private set; }
-        public List<Entity> CollisionTiles = new();
-        public List<Rectangle> CollisionTilesBounds = new();
-
-        public int DrawOrder => throw new NotImplementedException();
-        public bool Visible => throw new NotImplementedException();
-
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
 
         public Camera Camera { get; private set; }
 
@@ -74,11 +60,9 @@ namespace Rpg.Scenes
                 Map = _contentService.ContentManager.Load<TiledMap>(PathName);
                 MapRenderer = new TiledMapRenderer(_graphicsService.GraphicsDevice, Map);
 
-                TiledMapObjectLayer collisionLayer = Map.GetLayer<TiledMapObjectLayer>("collision");
+                TiledMapObjectLayer collisionLayer = Map.GetLayer<TiledMapObjectLayer>(MapHelper.LayoutCollision);
                 if (collisionLayer != null)
                 {
-                    CollisionTiles.Clear();
-                    CollisionTilesBounds.Clear();
                     foreach (var collisionObject in collisionLayer.Objects)
                     {
                         int rotation = (int)collisionObject.Rotation;
@@ -107,8 +91,9 @@ namespace Rpg.Scenes
                 }
 
             }
-            catch (Exception e) //TODO: Ajouter log
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Map = null;
                 MapRenderer = null;
             }
@@ -156,13 +141,13 @@ namespace Rpg.Scenes
 
             if (_configService.IsDebug)
             {
-                Map.Layers.Where(x => x.Name == "collision").ToList().ForEach(l =>
+                Map.Layers.Where(x => x.Name == MapHelper.LayoutCollision).ToList().ForEach(l =>
                 {
                     MapRenderer.Draw(l, Camera.GetTransformMatrix());
                 });
 
                 Map.Layers
-                    .Where(x => x.Properties.Any(p => p.Value.Value == "collision"))
+                    .Where(x => x.Properties.Any(p => p.Value.Value == MapHelper.LayoutCollision))
                     .ToList()
                     .ForEach(layer =>
                     {
@@ -322,7 +307,7 @@ namespace Rpg.Scenes
         private void CreateCollisionTile(int x, int y, int width, int height)
         {
             Entity collisionTile = _entityService.CreateEntity(x, y, width, height);
-            collisionTile.AddTag("collision");
+            collisionTile.AddTag(MapHelper.LayoutCollision);
             collisionTile.AddComponent(new CollisionComponent(collisionTile, width, height));
         }
 

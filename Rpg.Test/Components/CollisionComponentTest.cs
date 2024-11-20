@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Rpg.Components;
-using Rpg.Interfaces;
+using Rpg.Core.Components;
 using Rpg.Models;
-using Rpg.Services;
-using Rpg.Test.Mocks;
 
 namespace Rpg.Test.Components
 {

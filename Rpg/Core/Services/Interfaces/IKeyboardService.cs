@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 
-namespace Rpg.Interfaces
+namespace Rpg.Core.Services.Interfaces
 {
-    public interface IKeyboardService : IDisposable
+    public interface IKeyboardService : IBaseService
     {
         public event EventHandler KeyboardEvent;
 

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 using Rpg.Exceptions;
 using Rpg.Models;
-using Rpg.Scenes;
-using Rpg.Services;
 
 namespace Rpg.Test.Models
 {
@@ -126,7 +123,7 @@ namespace Rpg.Test.Models
             Assert.ThrowsException<NegativeVectorException>(() => new Camera(size: v), "Screen size cannot have negative value");
         }
 
-      
+
 
         [TestMethod]
         public void FollowPercentage_Set()

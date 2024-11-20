@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Rpg.Components;
-using Rpg.Interfaces;
+using Rpg.Core.Services;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Models;
 using System;
 using System.Collections.Generic;
 
 namespace Rpg.Services
 {
-    public class EntityService : IEntityService
+    public class EntityService : BaseService, IEntityService
     {
         private readonly List<Entity> _entities = new();
 
@@ -55,7 +56,7 @@ namespace Rpg.Services
             playerEntity.AddTag("player");
 
             // Add transform and sprites
-            //TODO:playerEntity.AddComponent(new TransformComponent(x, y, width, height));
+            // playerEntity AddComponent new TransformComponent x, y, width, height
             playerEntity.AddComponent(new CollisionComponent(
                     playerEntity, new Vector2(13, 7), new Vector2(0, 12)
                 ));

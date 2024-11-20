@@ -4,17 +4,16 @@ using Rpg.Exceptions;
 using Rpg.Interfaces;
 using Rpg.Scenes;
 using System;
-using System.Reflection.Metadata;
 
 namespace Rpg.Models
 {
-    public class Camera : IInitializable, IUpdateable
+    public class Camera : IInitializable, IUpdatable
     {
         public string Name { get; private set; }
         public Vector2 ScreenPosition { get; private set; }
         public Vector2 Size { get; private set; }
         private Vector2 WorldPosition { get; set; }
-        
+
         public Vector2 PreviousWorldPosition { get; private set; }
         public Vector2 TargetWorldPosition { get; private set; }
 
@@ -31,10 +30,6 @@ namespace Rpg.Models
         public Entity TrackedEntity { get; private set; }
         public Entity OwnerEntity { get; private set; }
         private DebugScene DebugScene { get; set; }
-
-        public bool Enabled => throw new NotImplementedException();
-
-        public int UpdateOrder => throw new NotImplementedException();
 
         public Camera(
             string name = "",
@@ -76,9 +71,6 @@ namespace Rpg.Models
             OwnerEntity = ownerEntity;
             DebugScene = debugScene;
         }
-
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
 
         public void SetWorldPosition(Vector2 position)
         {

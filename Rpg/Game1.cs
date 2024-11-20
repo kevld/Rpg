@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Rpg.Interfaces;
+using Rpg.Core.Services.Interfaces;
 using Rpg.Managers;
 using Rpg.Scenes;
 using Rpg.Services;
