@@ -11,7 +11,7 @@ namespace Rpg.Models
         private readonly Guid _id;
         private readonly List<string> _tags;
 
-        private readonly List<Component> _components;
+        private readonly List<BaseComponent> _components;
 
         public Vector2 WorldPosition { get; set; }
         public Vector2 Size { get; set; }
@@ -19,13 +19,13 @@ namespace Rpg.Models
         public string Id => _id.ToString();
 
         public IReadOnlyList<string> Tags => _tags.AsReadOnly();
-        public IReadOnlyList<Component> Components => _components.AsReadOnly();
+        public IReadOnlyList<BaseComponent> Components => _components.AsReadOnly();
 
         public Entity()
         {
             _id = Guid.NewGuid();
             _tags = new List<string>();
-            _components = new List<Component>();
+            _components = new List<BaseComponent>();
         }
 
         public bool AddTag(string tag)
@@ -69,13 +69,13 @@ namespace Rpg.Models
 
         public void Update(GameTime gameTime)
         {
-            foreach (Component component in _components)
+            foreach (BaseComponent component in _components)
             {
                 component.Update(gameTime);
             }
         }
 
-        public void AddComponent(Component component)
+        public void AddComponent(BaseComponent component)
         {
 
             component.Initialize();

@@ -6,7 +6,7 @@ using System;
 
 namespace Rpg.Components
 {
-    public class CollisionComponent : Component
+    public class CollisionComponent : BaseComponent
     {
         public Rectangle Box { get; private set; }
         public Rectangle Broadphase { get; private set; }
