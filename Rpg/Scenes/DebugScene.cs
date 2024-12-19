@@ -19,6 +19,8 @@ namespace Rpg.Scenes
             Entity player = _entityService.CreatePlayerEntity(x: (int)playerPosition.X, y: (int)playerPosition.Y, 15, 20, idTag: "localPlayer");
             _entityService.LocalPlayer = player;
             player.AddComponent(new InputComponent(player, _keyboardService, _entityService));
+            player.AddComponent(new DirectionComponent(player));
+            player.AddComponent(new InteractComponent(player, _graphicsService));
 
             base.Initialize();
         }

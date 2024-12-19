@@ -81,14 +81,19 @@ namespace Rpg.Components
                 }
             }
 
+            Vector2 velocityResult = Vector2.Zero;
+
             if (!hasCollisionX)
             {
-                Owner.WorldPosition += velocityX;
+                velocityResult += velocityX;
             }
             if (!hasCollisionY)
             {
-                Owner.WorldPosition += velocityY;
+                velocityResult += velocityY;
             }
+
+            Owner.WorldPosition += velocityResult;
+            Owner.WorldPosition.Normalize();
         }
 
         #region Private

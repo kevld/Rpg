@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Rpg.Core.Components;
 using Rpg.Models;
 using System;
