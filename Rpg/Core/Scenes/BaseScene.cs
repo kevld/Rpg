@@ -179,6 +179,12 @@ namespace Rpg.Core.Scenes
                 layerDepth: 0.0f
             );
 
+            foreach (var item in e.Components)
+            {
+                item.Draw(gameTime);
+            }
+
+
             _entityService.GetEntities().Where(x => x.Components.Any(x => (x is CollisionComponent)))
                 .ToList()
                 .ForEach(e =>

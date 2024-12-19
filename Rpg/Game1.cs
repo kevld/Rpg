@@ -47,7 +47,7 @@ namespace Rpg
             RegisterManagers();
 
             SceneManager.Initialize();
-            SceneManager.ChangeScene<DebugScene2>();
+            SceneManager.ChangeScene<DebugScene>();
         }
 
         protected override void LoadContent()

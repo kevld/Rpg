@@ -3,6 +3,7 @@ using Rpg.Core.Components;
 using Rpg.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rpg.Models
 {
@@ -27,6 +28,8 @@ namespace Rpg.Models
             _tags = new List<string>();
             _components = new List<BaseComponent>();
         }
+
+        #region public
 
         public bool AddTag(string tag)
         {
@@ -92,5 +95,17 @@ namespace Rpg.Models
             var projectionLocation = WorldPosition + velocity;
             return new Rectangle((int)projectionLocation.X, (int)projectionLocation.Y, (int)Size.X, (int)Size.Y);
         }
+
+        public T GetComponent<T>() where T : class
+        {
+            return Components.FirstOrDefault(x => x.GetType() == typeof(T)) as T;
+        }
+
+        #endregion
+
+        #region private
+
+        #endregion
+
     }
 }

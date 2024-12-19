@@ -67,6 +67,7 @@ namespace Rpg.Services
                     playerEntity, new Vector2(13, 7), new Vector2(0, 12)
                 ));
 
+
             LocalPlayer = playerEntity;
 
             return playerEntity;

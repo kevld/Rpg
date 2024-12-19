@@ -6,7 +6,7 @@ using System;
 
 namespace Rpg.Core.Components
 {
-    public abstract class BaseComponent : DisposableObject, IInitializable, IUpdatable
+    public abstract class BaseComponent : DisposableObject, IInitializable, IUpdatable, Interfaces.IDrawable
     {
         private readonly Entity _owner;
 
@@ -24,6 +24,10 @@ namespace Rpg.Core.Components
         }
 
         public virtual void Update(GameTime gameTime)
+        {
+        }
+
+        public virtual void Draw(GameTime gameTime)
         {
         }
     }
