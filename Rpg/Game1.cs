@@ -54,6 +54,7 @@ namespace Rpg
         {
 
             _graphicsService.SpriteBatch = new SpriteBatch(GraphicsDevice);
+            _contentService.DialogFont = Content.Load<SpriteFont>("Fonts/dialog");
         }
 
         protected override void Update(GameTime gameTime)

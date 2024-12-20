@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Rpg.Components;
+using Rpg.Components.Interactives;
 using Rpg.Core.Services;
 using Rpg.Core.Services.Interfaces;
 using Rpg.Models;
@@ -39,6 +40,7 @@ namespace Rpg.Services
 
         }
 
+
         public Entity CreatePlayerEntity(int x, int y, int width, int height, string defaultState = "idle_right", float speed = 50, string idTag = null)
         {
             Entity playerEntity = CreateEntity();
@@ -53,10 +55,7 @@ namespace Rpg.Services
             }
             else
             {
-                // Generate a new unique player id
-                Guid guid = Guid.NewGuid();
-                // Generate a new player guid if it already exists?
-                playerEntity.AddTag("player" + guid);
+                playerEntity.AddTag("player" + playerEntity.Id);
             }
 
             playerEntity.AddTag("player");
@@ -72,6 +71,28 @@ namespace Rpg.Services
 
             return playerEntity;
         }
+
+        public Entity CreateNpcEntity(int x, int y, int width, int height, string defaultState = "idle", float speed = 0, string idTag = null)
+        {
+            Entity npc = CreateEntity();
+            npc.WorldPosition = new Vector2(x, y);
+            npc.Size = new Vector2(width, height);
+
+            if (!string.IsNullOrEmpty(idTag))
+            {
+                npc.AddTag(idTag);
+            }
+            else
+            {
+                npc.AddTag($"npc-{npc.Id}");
+            }
+
+            npc.AddComponent(new CollisionComponent(npc, new Vector2(13, 7), new Vector2(0, 12)));
+            //npc.AddComponent(new DialogueComponent(npc, ));
+
+            return npc;
+        }
+
 
         public IReadOnlyCollection<Entity> GetEntities()
         {

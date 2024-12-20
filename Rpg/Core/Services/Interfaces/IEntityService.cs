@@ -10,6 +10,8 @@ namespace Rpg.Core.Services.Interfaces
         public Entity CreatePlayerEntity(int x, int y, int width, int height,
             string defaultState = "idle_right", float speed = 50, string idTag = null);
 
+        public Entity CreateNpcEntity(int x, int y, int width, int height, string defaultState = "idle", float speed = 0, string idTag = null);
+
         public Entity CreateEntity();
         public Entity CreateEntity(int x, int y, int width, int height);
 

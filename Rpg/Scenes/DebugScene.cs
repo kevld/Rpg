@@ -22,6 +22,7 @@ namespace Rpg.Scenes
             player.AddComponent(new DirectionComponent(player));
             player.AddComponent(new InteractComponent(player, _graphicsService));
 
+
             base.Initialize();
         }
     }
